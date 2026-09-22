@@ -1,0 +1,28 @@
+# Kvasir-SEG polyp segmentation — U-Net / ResNet34
+data:
+  root: data/Kvasir-SEG
+  splits_dir: data/splits
+  img_size: 352
+  val_frac: 0.1
+  test_frac: 0.1
+  split_seed: 42
+
+model:
+  arch: Unet                 # any segmentation_models_pytorch arch: Unet, UnetPlusPlus, FPN, DeepLabV3Plus ...
+  encoder: resnet34
+  encoder_weights: imagenet
+
+train:
+  epochs: 60
+  batch_size: 16
+  lr: 3.0e-4
+  weight_decay: 1.0e-4
+  num_workers: 4
+  amp: true
+  early_stop_patience: 15
+  seed: 42
+  out_dir: runs/kvasir_unet_r34
+
+eval:
+  threshold: 0.5
+  tta: true                  # horizontal + vertical flip averaging at test time

@@ -1,0 +1,31 @@
+[project]
+name = "bioseg"
+version = "0.1.0"
+description = "Polyp segmentation on Kvasir-SEG: end-to-end U-Net pipeline"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "torch>=2.7",
+    "torchvision>=0.22",
+    "segmentation-models-pytorch>=0.4",
+    "albumentations>=2.0",
+    "opencv-python-headless>=4.9",
+    "numpy>=1.26",
+    "pandas>=2.1",
+    "matplotlib>=3.8",
+    "tqdm>=4.66",
+    "pyyaml>=6.0",
+    "requests>=2.31",
+]
+
+# RTX 50-series (Blackwell, sm_120) needs CUDA 12.8 wheels
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+torchvision = { index = "pytorch-cu128" }
+
+[tool.uv]
+package = false
