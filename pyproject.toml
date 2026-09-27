@@ -15,6 +15,9 @@ dependencies = [
     "tqdm>=4.66",
     "pyyaml>=6.0",
     "requests>=2.31",
+    "monai>=1.4",
+    "nibabel>=5.2",
+    "scipy>=1.12",
 ]
 
 # RTX 50-series (Blackwell, sm_120) needs CUDA 12.8 wheels

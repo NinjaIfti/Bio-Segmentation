@@ -1,0 +1,32 @@
+# MSD Task04 Hippocampus — 3D U-Net, multi-class (background / Anterior / Posterior)
+data:
+  root: data/Task04_Hippocampus
+  splits_dir: data/splits_hippocampus
+  task_url: https://msd-for-monai.s3-us-west-2.amazonaws.com/Task04_Hippocampus.tar
+  # every volume is padded/cropped to this size for training (must divide by 16 for the U-Net)
+  patch_size: [48, 64, 48]
+  val_frac: 0.15
+  test_frac: 0.15
+  split_seed: 42
+
+model:
+  channels: [16, 32, 64, 128, 256]
+  strides: [2, 2, 2, 2]
+  num_res_units: 2
+  dropout: 0.1
+
+train:
+  epochs: 120
+  batch_size: 8
+  lr: 1.0e-3
+  weight_decay: 1.0e-5
+  num_workers: 4
+  amp: true
+  early_stop_patience: 30
+  seed: 42
+  out_dir: runs/hippocampus_unet3d
+
+eval:
+  # Normalized Surface Dice tolerance per foreground class, in mm.
+  # 1 mm = one voxel here; it is the accepted inter-rater margin for this structure.
+  nsd_tolerance_mm: [1.0, 1.0]
